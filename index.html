@@ -4,56 +4,93 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#050505">
+    <meta name="theme-color" content="#F5F5F1">
+    <script>
+        (function () {
+            var stored = null;
+            try { stored = localStorage.getItem('theme'); } catch (e) { }
+            var theme = stored || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 
     <title>Chinmay Rajguru — Technology &amp; Innovation Leader</title>
 
     <meta name="description"
         content="Technology & Innovation Leader in Mumbai — enterprise AI, spatial computing and 0-to-1 innovation. $30M+ in delivered business value. Ph.D. (University of Sussex); published in Nature Scientific Reports and ACM SIGGRAPH.">
 
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Chinmay Rajguru — Technology &amp; Innovation Leader">
+    <meta property="og:description"
+        content="Enterprise AI, spatial computing and 0-to-1 innovation. $30M+ delivered value. Ph.D., University of Sussex.">
+    <meta name="twitter:card" content="summary">
+
+    <link rel="icon"
+        href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%232742C9'/%3E%3Ctext x='32' y='42' font-family='Arial, sans-serif' font-size='26' font-weight='700' text-anchor='middle' fill='white'%3ECR%3C/text%3E%3C/svg%3E">
+
     <link rel="stylesheet" href="styles.css">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Inter+Tight:wght@500;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    <link
+        href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600..800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
         rel="stylesheet">
 </head>
 
 <body>
 
-    <!-- GENESIS CANVAS -->
-    <canvas id="genesis-canvas"></canvas>
+    <!-- Ambient light behind the glass -->
+    <div class="aurora" aria-hidden="true"></div>
 
     <!-- NAV -->
-    <nav class="navbar">
-        <div class="logo">CR</div>
+    <nav class="navbar glass">
+        <a class="logo" href="#top" aria-label="Back to top">CR</a>
 
-        <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+        <div class="nav-right">
+            <ul>
+                <li><a href="#impact">Impact</a></li>
+                <li><a href="#work">Case Studies</a></li>
+                <li><a href="#journey">Journey</a></li>
+                <li><a href="#research">The Record</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
 
-        <ul>
-            <li><a href="#impact">Impact</a></li>
-            <li><a href="#work">Case Studies</a></li>
-            <li><a href="#journey">Journey</a></li>
-            <li><a href="#research">The Record</a></li>
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-        </ul>
+            <button class="theme-toggle" aria-label="Switch to dark theme">
+                <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="12" cy="12" r="5" />
+                    <line x1="12" y1="1" x2="12" y2="3" />
+                    <line x1="12" y1="21" x2="12" y2="23" />
+                    <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                    <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                    <line x1="1" y1="12" x2="3" y2="12" />
+                    <line x1="21" y1="12" x2="23" y2="12" />
+                    <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                    <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+            </button>
+
+            <button class="mobile-menu-btn" aria-label="Toggle navigation menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
     </nav>
 
-    <!-- BEAT 1 · HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <span class="eyebrow">
-                Emerging Technologies • Enterprise AI • 0-to-1 Innovation
-            </span>
+    <!-- HERO -->
+    <header class="hero" id="top">
+        <div class="hero-inner">
+            <span class="eyebrow">Emerging technologies · Enterprise AI · 0-to-1 innovation</span>
 
             <h1>Chinmay Rajguru</h1>
-            <h2>Technology &amp; Innovation Leader</h2>
+            <p class="hero-role">Technology &amp; Innovation Leader</p>
 
             <p class="hero-description">
                 I take emerging technology from possibility to production —
@@ -63,66 +100,83 @@
 
             <p class="hero-anchor">
                 Senior Project Leader — Product &amp; AI Innovation at Abans Finserv, Mumbai
-                &nbsp;·&nbsp; Formerly GKN Aerospace
-                &nbsp;·&nbsp; Ph.D., University of Sussex
+                · Formerly GKN Aerospace · Ph.D., University of Sussex
             </p>
 
             <div class="hero-cta">
-                <a href="#work" class="btn-primary">View Case Studies</a>
+                <a href="#work" class="btn-primary">View case studies</a>
                 <!-- Resume PDF: place it in the repo root named exactly Chinmay_Rajguru_Resume_2026.pdf -->
                 <a href="./Chinmay_Rajguru_Resume_2026.pdf" target="_blank" rel="noopener noreferrer"
-                    class="btn-secondary">Download Resume</a>
+                    class="btn-secondary">Download resume</a>
+            </div>
+        </div>
+
+        <!-- The method — thinking rendered as structure, on the first pane of glass -->
+        <div class="method">
+            <div class="method-pane glass">
+                <span class="method-label">Method</span>
+            <p class="method-chain">
+                <span class="method-step">Find the unmet need</span>
+                <span class="method-arrow">→</span>
+                <span class="method-step">form a hypothesis</span>
+                <span class="method-arrow">→</span>
+                <span class="method-step">validate with real users</span>
+                <span class="method-arrow">→</span>
+                <span class="method-step">scale what works</span>
+                </p>
+            </div>
+        </div>
+
+        <div class="cred-strip">
+            <span class="cred-label">Published in / featured on</span>
+            <ul class="cred-items">
+                <li><a target="_blank" rel="noopener noreferrer"
+                        href="https://www.nature.com/articles/s41598-022-15931-y">Nature Scientific Reports</a></li>
+                <li><a target="_blank" rel="noopener noreferrer"
+                        href="https://dl.acm.org/doi/abs/10.1145/3355056.3364596">ACM SIGGRAPH Asia</a></li>
+                <li><a target="_blank" rel="noopener noreferrer"
+                        href="https://pubs.aip.org/asa/jasa/article/156/4_Supplement/A43/3331153">JASA</a></li>
+                <li><a target="_blank" rel="noopener noreferrer"
+                        href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.569056/full">Frontiers</a></li>
+                <li><a target="_blank" rel="noopener noreferrer"
+                        href="https://www.bbc.co.uk/programmes/w3csy67k">BBC World Service</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- 01 · IMPACT -->
+    <section id="impact" class="section reveal">
+        <span class="sec-tag">01 · Impact</span>
+
+        <div class="impact-grid">
+            <div class="impact-item reveal stagger-1">
+                <span class="impact-number" data-target="30" data-prefix="$" data-suffix="M+">0</span>
+                <span class="impact-label">Business value delivered</span>
             </div>
 
-            <div class="cred-strip">
-                <span class="cred-label">Published in / featured on</span>
-                <ul class="cred-items">
-                    <li><a target="_blank" rel="noopener noreferrer"
-                            href="https://www.nature.com/articles/s41598-022-15931-y">Nature Scientific Reports</a></li>
-                    <li><a target="_blank" rel="noopener noreferrer"
-                            href="https://dl.acm.org/doi/abs/10.1145/3355056.3364596">ACM SIGGRAPH Asia</a></li>
-                    <li><a target="_blank" rel="noopener noreferrer"
-                            href="https://pubs.aip.org/asa/jasa/article/156/4_Supplement/A43/3331153">JASA</a></li>
-                    <li><a target="_blank" rel="noopener noreferrer"
-                            href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.569056/full">Frontiers</a></li>
-                    <li><a target="_blank" rel="noopener noreferrer"
-                            href="https://www.bbc.co.uk/programmes/w3csy67k">BBC World Service</a></li>
-                </ul>
+            <div class="impact-item reveal stagger-2">
+                <span class="impact-number" data-target="10" data-prefix="$" data-suffix="M+">0</span>
+                <span class="impact-label">Innovation funding supported</span>
+            </div>
+
+            <div class="impact-item reveal stagger-3">
+                <span class="impact-number" data-target="210" data-prefix="" data-suffix="+">0</span>
+                <span class="impact-label">User-study participants</span>
+            </div>
+
+            <div class="impact-item reveal stagger-4">
+                <span class="impact-number" data-target="8" data-prefix="" data-suffix="+">0</span>
+                <span class="impact-label">Peer-reviewed publications</span>
             </div>
         </div>
     </section>
 
-    <!-- BEAT 2 · IMPACT -->
-    <section class="impact-dashboard" id="impact">
+    <!-- 02 · CASE STUDIES -->
+    <section id="work" class="section reveal">
 
-        <div class="impact-card stagger-1">
-            <span class="impact-number" data-target="30" data-prefix="$" data-suffix="M+">0</span>
-            <span class="impact-label">Business Value Delivered</span>
-        </div>
-
-        <div class="impact-card stagger-2">
-            <span class="impact-number" data-target="10" data-prefix="$" data-suffix="M+">0</span>
-            <span class="impact-label">Innovation Funding Supported</span>
-        </div>
-
-        <div class="impact-card stagger-3">
-            <span class="impact-number" data-target="210" data-prefix="" data-suffix="+">0</span>
-            <span class="impact-label">User-Study Participants</span>
-        </div>
-
-        <div class="impact-card stagger-4">
-            <span class="impact-number" data-target="8" data-prefix="" data-suffix="+">0</span>
-            <span class="impact-label">Peer-Reviewed Publications</span>
-        </div>
-
-    </section>
-
-    <!-- BEAT 3 · CASE STUDIES -->
-    <section id="work" class="section">
-
-        <div class="section-header">
-            <span class="section-tag">SELECTED WORK</span>
-            <h2>Case Studies</h2>
+        <div class="sec-head">
+            <span class="sec-tag">02 · Selected work</span>
+            <h2>Case studies</h2>
             <p>
                 Three initiatives, told the way I ran them: the challenge,
                 the constraints, what I actually did, and what it produced.
@@ -130,10 +184,10 @@
         </div>
 
         <!-- CASE 1 -->
-        <article class="case-card stagger-1">
+        <article class="case-card glass reveal stagger-1">
             <div class="case-head">
-                <span class="case-tag">GKN AEROSPACE · ENTERPRISE AI · 2023–2026</span>
-                <h3>Secure Enterprise GenAI Under ITAR</h3>
+                <span class="case-tag">GKN Aerospace · Enterprise AI · 2023–2026</span>
+                <h3>Secure enterprise GenAI under ITAR</h3>
                 <p class="case-summary">
                     Making GenAI adoption possible in a regulated aerospace
                     enterprise — without surrendering data sovereignty.
@@ -196,10 +250,10 @@
         </article>
 
         <!-- CASE 2 -->
-        <article class="case-card stagger-2">
+        <article class="case-card glass reveal stagger-2">
             <div class="case-head">
-                <span class="case-tag">GKN AEROSPACE · COMPUTER VISION</span>
-                <h3>Computer Vision Inspection: POC in a Month</h3>
+                <span class="case-tag">GKN Aerospace · Computer vision</span>
+                <h3>Computer vision inspection: POC in a month</h3>
                 <p class="case-summary">
                     Turning a manual inspection bottleneck into an
                     industrialisation roadmap — starting with a one-month prototype.
@@ -253,10 +307,10 @@
         </article>
 
         <!-- CASE 3 -->
-        <article class="case-card stagger-3">
+        <article class="case-card glass reveal stagger-3">
             <div class="case-head">
-                <span class="case-tag">ABANS FINSERV · AGENTIC AI · 2026</span>
-                <h3>AI-Powered Regression Testing for a Trading Platform</h3>
+                <span class="case-tag">Abans Finserv · Agentic AI · 2026</span>
+                <h3>AI-powered regression testing for a trading platform</h3>
                 <p class="case-summary">
                     An internal product built with Playwright and Claude Code that
                     turned a week of manual QA into a 2–3 hour automated run.
@@ -317,267 +371,246 @@
 
     </section>
 
-    <!-- BEAT 4 · JOURNEY SCROLL-STORY -->
-    <section id="journey" class="section story-section">
+    <!-- 03 · JOURNEY -->
+    <section id="journey" class="section reveal">
 
-        <div class="section-header">
-            <span class="section-tag">THE THROUGH-LINE</span>
-            <h2>One Skill, Five Chapters</h2>
+        <div class="sec-head">
+            <span class="sec-tag">03 · The through-line</span>
+            <h2>One skill, five chapters</h2>
             <p>
                 Translating between people, technology, and business —
-                keep scrolling and the story advances on its own.
+                the bar below tracks where you are in the story.
             </p>
         </div>
 
-        <div class="story-wrap">
-
-            <div class="story-stage">
-
-                <div class="story-pipeline" aria-hidden="true">
-                    <div class="sp-node" data-sp="people">
-                        <span class="sp-dot"></span>
-                        <span class="sp-label">People</span>
-                    </div>
-                    <div class="sp-bridge" data-sp="sussex">
-                        <span class="sp-line"></span>
-                        <span class="sp-tag">Sussex</span>
-                    </div>
-                    <div class="sp-node" data-sp="tech">
-                        <span class="sp-dot"></span>
-                        <span class="sp-label">Technology</span>
-                    </div>
-                    <div class="sp-bridge" data-sp="gkn">
-                        <span class="sp-line"></span>
-                        <span class="sp-tag">GKN</span>
-                    </div>
-                    <div class="sp-node" data-sp="business">
-                        <span class="sp-dot"></span>
-                        <span class="sp-label">Business</span>
-                    </div>
-                    <div class="sp-bridge sp-loop" data-sp="abans">
-                        <span class="sp-line"></span>
-                        <span class="sp-tag">Abans ↺</span>
-                    </div>
-                </div>
-
-                <div class="chapter-panel">
-
-                    <article class="chapter active" data-chapter="0">
-                        <span class="chapter-tag">2016–2017 · SOUTHERN ILLINOIS UNIVERSITY</span>
-                        <h3>Research → Manufacturable Products</h3>
-                        <p>M.S. in Computer Science (AI &amp; game development). A thesis
-                            under Dr. Christos Mousas and Dr. Craig Yu turned
-                            computational-design research into 3D-printed, game-centred
-                            gamepads — and a year as a teaching assistant taught me to
-                            explain hard things simply.</p>
-                        <blockquote class="chapter-quote">
-                            "Translated research insights into manufacturable products."
-                            <cite>M.S. thesis supervision — Southern Illinois University</cite>
-                        </blockquote>
-                    </article>
-
-                    <article class="chapter" data-chapter="1">
-                        <span class="chapter-tag">2018 · 8i LABS, LOS ANGELES</span>
-                        <h3>Experimental Tech → Reliable Production</h3>
-                        <p>In a venture-backed volumetric-video startup, I built AR/VR
-                            tools and automated 3D-capture pipelines in Python on AWS —
-                            processing 500+ immersive assets and improving production
-                            efficiency by 15%. A first lesson in industrialising the
-                            experimental.</p>
-                    </article>
-
-                    <article class="chapter" data-chapter="2">
-                        <span class="chapter-tag">2019–2023 · UNIVERSITY OF SUSSEX</span>
-                        <h3>Physics → Human Perception</h3>
-                        <p>Ph.D. in spatial computing and psychoacoustics under
-                            Dr. Gianluca Memoli and Prof. Marianna Obrist: 210+ study
-                            participants, 8+ peer-reviewed publications, a privately
-                            funded industry collaboration with Portal Devices, and
-                            research featured on BBC World Service.</p>
-                        <blockquote class="chapter-quote">
-                            "Outstanding communication, presentation, and collaboration skills."
-                            <cite>Ph.D. supervision — University of Sussex</cite>
-                        </blockquote>
-                    </article>
-
-                    <article class="chapter" data-chapter="3">
-                        <span class="chapter-tag">2023–2026 · GKN AEROSPACE</span>
-                        <h3>Knowledge → Enterprise Intelligence</h3>
-                        <p>Led emerging-technology initiatives across the UK, Sweden,
-                            the Netherlands and India: validated secure on-premise LLM
-                            and RAG under ITAR, resolved a board-level deadlock, cut
-                            cloud dependency by 30%, and took a computer-vision
-                            inspection concept from prototype to industrialisation
-                            roadmap — inside a portfolio delivering $30M+ in value.</p>
-                        <blockquote class="chapter-quote">
-                            "Clarified technical situations and helped teams agree the way forward."
-                            <cite>Leadership — GKN Aerospace</cite>
-                        </blockquote>
-                    </article>
-
-                    <article class="chapter" data-chapter="4">
-                        <span class="chapter-tag">2026–PRESENT · ABANS FINSERV, MUMBAI</span>
-                        <h3>Business Needs → Working Products</h3>
-                        <p>Owning product direction for Dealer Pad, a capital-markets
-                            platform serving 40+ users. Built an internal AI
-                            regression-testing product on Playwright and Claude Code —
-                            a week of manual QA now runs in 2–3 hours — and embedded
-                            GenAI through discovery, requirements and documentation.</p>
-                    </article>
-
-                </div>
-
-                <div class="story-progress">
-                    <button class="story-dot active" data-step="0" aria-label="Chapter 1: Southern Illinois University"></button>
-                    <button class="story-dot" data-step="1" aria-label="Chapter 2: 8i Labs"></button>
-                    <button class="story-dot" data-step="2" aria-label="Chapter 3: University of Sussex"></button>
-                    <button class="story-dot" data-step="3" aria-label="Chapter 4: GKN Aerospace"></button>
-                    <button class="story-dot" data-step="4" aria-label="Chapter 5: Abans Finserv"></button>
-                    <span class="story-hint">Keep scrolling</span>
-                </div>
-
+        <div class="jbar glass" role="navigation" aria-label="Journey chapters">
+            <div class="jbar-track">
+                <div class="jbar-line"></div>
+                <div class="jbar-fill"></div>
+                <button class="jstop active" data-step="0" aria-label="Go to chapter: Southern Illinois University"><span class="jstop-dot"></span><span
+                        class="jstop-label">SIU</span></button>
+                <button class="jstop" data-step="1" aria-label="Go to chapter: 8i Labs"><span class="jstop-dot"></span><span
+                        class="jstop-label">8i</span></button>
+                <button class="jstop" data-step="2" aria-label="Go to chapter: University of Sussex"><span class="jstop-dot"></span><span
+                        class="jstop-label">Sussex</span></button>
+                <button class="jstop" data-step="3" aria-label="Go to chapter: GKN Aerospace"><span class="jstop-dot"></span><span
+                        class="jstop-label">GKN</span></button>
+                <button class="jstop" data-step="4" aria-label="Go to chapter: Abans Finserv"><span class="jstop-dot"></span><span
+                        class="jstop-label">Abans</span></button>
             </div>
+        </div>
 
-            <div class="story-steps" aria-hidden="true">
-                <div class="story-step" data-chapter="0"></div>
-                <div class="story-step" data-chapter="1"></div>
-                <div class="story-step" data-chapter="2"></div>
-                <div class="story-step" data-chapter="3"></div>
-                <div class="story-step" data-chapter="4"></div>
-            </div>
+        <div class="chapter-flow">
+
+            <article class="chapter glass reveal" data-chapter="0">
+                <span class="chapter-tag">2016–2017 · Southern Illinois University</span>
+                <h3>Research → Manufacturable products</h3>
+                <p>M.S. in Computer Science (AI &amp; game development). A thesis
+                    under Dr. Christos Mousas and Dr. Craig Yu turned
+                    computational-design research into 3D-printed, game-centred
+                    gamepads — and a year as a teaching assistant taught me to
+                    explain hard things simply.</p>
+                <blockquote class="chapter-quote">
+                    "Translated research insights into manufacturable products."
+                    <cite>M.S. thesis supervision — Southern Illinois University</cite>
+                </blockquote>
+            </article>
+
+            <article class="chapter glass reveal" data-chapter="1">
+                <span class="chapter-tag">2018 · 8i Labs, Los Angeles</span>
+                <h3>Experimental tech → Reliable production</h3>
+                <p>In a venture-backed volumetric-video startup, I built AR/VR
+                    tools and automated 3D-capture pipelines in Python on AWS —
+                    processing 500+ immersive assets and improving production
+                    efficiency by 15%. A first lesson in industrialising the
+                    experimental.</p>
+            </article>
+
+            <article class="chapter glass reveal" data-chapter="2">
+                <span class="chapter-tag">2019–2023 · University of Sussex</span>
+                <h3>Physics → Human perception</h3>
+                <p>Ph.D. in spatial computing and psychoacoustics under
+                    Dr. Gianluca Memoli and Prof. Marianna Obrist: 210+ study
+                    participants, 8+ peer-reviewed publications, a privately
+                    funded industry collaboration with Portal Devices, and
+                    research featured on BBC World Service.</p>
+                <blockquote class="chapter-quote">
+                    "Outstanding communication, presentation, and collaboration skills."
+                    <cite>Ph.D. supervision — University of Sussex</cite>
+                </blockquote>
+            </article>
+
+            <article class="chapter glass reveal" data-chapter="3">
+                <span class="chapter-tag">2023–2026 · GKN Aerospace</span>
+                <h3>Knowledge → Enterprise intelligence</h3>
+                <p>Led emerging-technology initiatives across the UK, Sweden,
+                    the Netherlands and India: validated secure on-premise LLM
+                    and RAG under ITAR, resolved a board-level deadlock, cut
+                    cloud dependency by 30%, and took a computer-vision
+                    inspection concept from prototype to industrialisation
+                    roadmap — inside a portfolio delivering $30M+ in value.</p>
+                <blockquote class="chapter-quote">
+                    "Clarified technical situations and helped teams agree the way forward."
+                    <cite>Leadership — GKN Aerospace</cite>
+                </blockquote>
+            </article>
+
+            <article class="chapter glass reveal" data-chapter="4">
+                <span class="chapter-tag">2026–present · Abans Finserv, Mumbai</span>
+                <h3>Business needs → Working products</h3>
+                <p>Owning product direction for Dealer Pad, a capital-markets
+                    platform serving 40+ users. Built an internal AI
+                    regression-testing product on Playwright and Claude Code —
+                    a week of manual QA now runs in 2–3 hours — and embedded
+                    GenAI through discovery, requirements and documentation.</p>
+            </article>
 
         </div>
 
     </section>
 
-    <!-- BEAT 5 · THE RECORD -->
-    <section id="research" class="section">
+    <!-- 04 · THE RECORD -->
+    <section id="research" class="section reveal">
 
-        <div class="section-header">
-            <span class="section-tag">THE RECORD</span>
-            <h2>Publications &amp; Recognition</h2>
+        <div class="sec-head">
+            <span class="sec-tag">04 · The record</span>
+            <h2>Publications &amp; recognition</h2>
             <p>The public trail — peer-reviewed research, media features, collaborations, and awards.</p>
         </div>
 
         <h3 class="record-sub">Publications</h3>
 
-        <div class="research-list">
+        <div class="pub-list">
             <a target="_blank" rel="noopener noreferrer"
-                href="https://pubs.aip.org/asa/jasa/article/156/4_Supplement/A43/3331153" class="stagger-1">
-                2024 — Realising Acoustic Projectors Using Metamaterial Lenses <span class="venue">· JASA</span>
+                href="https://pubs.aip.org/asa/jasa/article/156/4_Supplement/A43/3331153" class="pub-row reveal">
+                <span class="row-year">2024</span>
+                <span class="row-title">Realising Acoustic Projectors Using Metamaterial Lenses</span>
+                <span class="row-venue">JASA</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer"
                 href="https://sussex.figshare.com/articles/thesis/Shaping_sound_like_we_do_with_light/23496077"
-                class="stagger-2">
-                2022 — Ph.D. Thesis: Shaping Sound Like We Do With Light <span class="venue">· University of
-                    Sussex</span>
+                class="pub-row reveal">
+                <span class="row-year">2022</span>
+                <span class="row-title">Ph.D. Thesis: Shaping Sound Like We Do With Light</span>
+                <span class="row-venue">University of Sussex</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer" href="https://www.nature.com/articles/s41598-022-15931-y"
-                class="stagger-3">
-                2022 — Sound Localization in Web-Based 3D Environments <span class="venue">· Nature Scientific
-                    Reports</span>
+                class="pub-row reveal">
+                <span class="row-year">2022</span>
+                <span class="row-title">Sound Localization in Web-Based 3D Environments</span>
+                <span class="row-venue">Nature Scientific Reports</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer"
-                href="https://pubs.aip.org/asa/jasa/article/148/4_Supplement/2539/666128" class="stagger-4">
-                2020 — Spatial Sound Delivery System <span class="venue">· ASA</span>
+                href="https://pubs.aip.org/asa/jasa/article/148/4_Supplement/2539/666128" class="pub-row reveal">
+                <span class="row-year">2020</span>
+                <span class="row-title">Spatial Sound Delivery System</span>
+                <span class="row-venue">ASA</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer"
                 href="https://www.frontiersin.org/journals/psychology/articles/10.3389/fpsyg.2020.569056/full"
-                class="stagger-5">
-                2020 — Spatial Soundscapes and Virtual Worlds <span class="venue">· Frontiers in Psychology</span>
+                class="pub-row reveal">
+                <span class="row-year">2020</span>
+                <span class="row-title">Spatial Soundscapes and Virtual Worlds</span>
+                <span class="row-venue">Frontiers in Psychology</span>
             </a>
 
-            <a target="_blank" rel="noopener noreferrer"
-                href="https://dl.acm.org/doi/abs/10.1145/3355056.3364596" class="stagger-6">
-                2019 — AUDIOZOOM: Location-Based Sound Delivery <span class="venue">· ACM SIGGRAPH Asia</span>
+            <a target="_blank" rel="noopener noreferrer" href="https://dl.acm.org/doi/abs/10.1145/3355056.3364596"
+                class="pub-row reveal">
+                <span class="row-year">2019</span>
+                <span class="row-title">AUDIOZOOM: Location-Based Sound Delivery</span>
+                <span class="row-venue">ACM SIGGRAPH Asia</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer" href="https://dl.acm.org/doi/10.1145/3356590.3356607"
-                class="stagger-7">
-                2019 — Composing Spatial Soundscapes with Acoustic Metasurfaces <span class="venue">· ACM Audio
-                    Mostly</span>
+                class="pub-row reveal">
+                <span class="row-year">2019</span>
+                <span class="row-title">Composing Spatial Soundscapes with Acoustic Metasurfaces</span>
+                <span class="row-venue">ACM Audio Mostly</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer" href="https://dl.acm.org/doi/10.1145/3359997.3365695"
-                class="stagger-8">
-                2019 — Computational Design &amp; Fabrication of Customized Gamepads <span class="venue">· ACM
-                    VRCAI</span>
+                class="pub-row reveal">
+                <span class="row-year">2019</span>
+                <span class="row-title">Computational Design &amp; Fabrication of Customized Gamepads</span>
+                <span class="row-venue">ACM VRCAI</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer" href="https://opensiuc.lib.siu.edu/theses/2256/"
-                class="stagger-9">
-                2017 — M.S. Thesis: Game-Centered Gamepads <span class="venue">· Southern Illinois University</span>
+                class="pub-row reveal">
+                <span class="row-year">2017</span>
+                <span class="row-title">M.S. Thesis: Game-Centered Gamepads</span>
+                <span class="row-venue">Southern Illinois University</span>
             </a>
         </div>
 
-        <h3 class="record-sub">Recognition &amp; Collaborations</h3>
+        <h3 class="record-sub">Recognition &amp; collaborations</h3>
 
-        <div class="recognition-list">
+        <div class="rec-list">
             <a target="_blank" rel="noopener noreferrer" href="https://www.bbc.co.uk/programmes/w3csy67k"
-                class="recognition-row stagger-1">
-                <span class="rec-year">2020</span>
-                <span class="rec-body"><strong>BBC World Service — Digital Planet.</strong> Participated in the AURORA
+                class="rec-row reveal">
+                <span class="row-year">2020</span>
+                <span class="row-body"><strong>BBC World Service — Digital Planet.</strong> Participated in the AURORA
                     team's on-site recording; the research was featured internationally.</span>
-                <span class="rec-source">Listen ↗</span>
+                <span class="row-action">Listen ↗</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer"
                 href="https://scitechdaily.com/sound-projectors-deliver-audio-to-people-where-they-want-it-for-virtual-reality/"
-                class="recognition-row stagger-2">
-                <span class="rec-year">2020</span>
-                <span class="rec-body"><strong>International science media.</strong> SciTechDaily covered the
+                class="rec-row reveal">
+                <span class="row-year">2020</span>
+                <span class="row-body"><strong>International science media.</strong> SciTechDaily covered the
                     sound-projector research for VR, naming the Sussex team's work.</span>
-                <span class="rec-source">Read ↗</span>
+                <span class="row-action">Read ↗</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer"
                 href="https://gtr.ukri.org/project/94B8DEFD-4D7C-44B7-9216-03F59B17A1D6?fetchSize=50&amp;pn=0&amp;selectedSortOrder=ASC&amp;selectedSortableField=firstAuthorName"
-                class="recognition-row stagger-3">
-                <span class="rec-year">2019</span>
-                <span class="rec-body"><strong>Portal Devices × AURORA (UKRI).</strong> Privately funded
+                class="rec-row reveal">
+                <span class="row-year">2019</span>
+                <span class="row-body"><strong>Portal Devices × AURORA (UKRI).</strong> Privately funded
                     industry–research collaboration applying acoustic metamaterial techniques to a cinema-screen
                     acoustics problem — named on the UKRI project record.</span>
-                <span class="rec-source">UKRI record ↗</span>
+                <span class="row-action">UKRI record ↗</span>
             </a>
 
             <a target="_blank" rel="noopener noreferrer" href="https://www.isca-hq.org/SEDE/index.html"
-                class="recognition-row stagger-4">
-                <span class="rec-year">2026</span>
-                <span class="rec-body"><strong>SEDE 2026 — Invited Technical Reviewer.</strong> Peer review of
+                class="rec-row reveal">
+                <span class="row-year">2026</span>
+                <span class="row-body"><strong>SEDE 2026 — Invited Technical Reviewer.</strong> Peer review of
                     research submissions; publicly listed on the conference committee.</span>
-                <span class="rec-source">Committee ↗</span>
+                <span class="row-action">Committee ↗</span>
             </a>
 
-            <div class="recognition-row no-link stagger-5">
-                <span class="rec-year">2023–24</span>
-                <span class="rec-body"><strong>GKN Aerospace.</strong> Rookie of the Year (2023) · Employee of the
+            <div class="rec-row no-link reveal">
+                <span class="row-year">2023–24</span>
+                <span class="row-body"><strong>GKN Aerospace.</strong> Rookie of the Year (2023) · Employee of the
                     Month (2024).</span>
-                <span class="rec-source">Internal awards</span>
+                <span class="row-action">Internal awards</span>
             </div>
 
-            <div class="recognition-row no-link stagger-6">
-                <span class="rec-year">2017</span>
-                <span class="rec-body"><strong>Southern Illinois University.</strong> Graduate Tuition Award.</span>
-                <span class="rec-source">Award</span>
+            <div class="rec-row no-link reveal">
+                <span class="row-year">2017</span>
+                <span class="row-body"><strong>Southern Illinois University.</strong> Graduate Tuition Award.</span>
+                <span class="row-action">Award</span>
             </div>
         </div>
 
     </section>
 
-    <!-- BEAT 6 · ABOUT -->
-    <section id="about" class="section">
+    <!-- 05 · ABOUT -->
+    <section id="about" class="section reveal">
 
-        <div class="section-header">
-            <span class="section-tag">ABOUT</span>
-            <h2>Behind the Work</h2>
+        <div class="sec-head">
+            <span class="sec-tag">05 · About</span>
+            <h2>Behind the work</h2>
         </div>
 
         <div class="about-grid">
-            <div class="about-photo">
+            <div class="about-photo glass">
                 <!-- Drop your photo into the repo root as profile.jpg (square, ~600×600+).
                      If the file is missing, the CR monogram shows automatically. -->
                 <img src="profile.jpg" alt="Chinmay Rajguru" onerror="this.remove()">
@@ -617,21 +650,31 @@
 
     </section>
 
-    <!-- BEAT 7 · CONTACT -->
-    <section id="contact" class="contact">
+    <!-- 06 · CONTACT -->
+    <section id="contact" class="section contact reveal">
+        <span class="sec-tag">06 · Contact</span>
+
         <span class="availability-pill"><span class="availability-dot"></span>Open to innovation &amp; enterprise AI
             leadership roles — Mumbai · Pune · Hybrid · Remote (Global)</span>
 
-        <h2>Let's Build Something Meaningful</h2>
+        <h2>Let's build something meaningful</h2>
         <p>Open to conversations around enterprise AI, product strategy, and digital transformation.</p>
 
         <div class="contact-links">
-            <a href="mailto:hello.chinmayrajguru@gmail.com">Email</a>
-            <a href="https://linkedin.com/in/chinmay-rajguru" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a class="btn-primary" href="mailto:hello.chinmayrajguru@gmail.com">Email me</a>
+            <a class="btn-secondary" href="https://linkedin.com/in/chinmay-rajguru" target="_blank"
+                rel="noopener noreferrer">LinkedIn</a>
             <!-- Resume PDF: place it in the repo root named exactly Chinmay_Rajguru_Resume_2026.pdf -->
-            <a href="./Chinmay_Rajguru_Resume_2026.pdf" target="_blank" rel="noopener noreferrer">Resume</a>
+            <a class="btn-secondary" href="./Chinmay_Rajguru_Resume_2026.pdf" target="_blank"
+                rel="noopener noreferrer">Resume</a>
         </div>
     </section>
+
+    <footer class="footer">
+        <span>© 2026 Chinmay Rajguru</span>
+        <span class="footer-sep">·</span>
+        <span>Mumbai, India</span>
+    </footer>
 
     <script src="script.js"></script>
 
