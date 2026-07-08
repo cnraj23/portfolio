@@ -135,232 +135,68 @@ function animate() {
 animate();
 
 // ========================================
-// JOURNEY DATA
+// JOURNEY SCROLL-STORY
 // ========================================
 
-const journeyData = {
-    "8i Labs": {
-        title: "Reality → Digital Experience",
-        content: `Built volumetric capture pipelines and immersive experiences that translated physical reality into digital interaction.
+const storySteps = document.querySelectorAll('.story-step');
+const chapters = document.querySelectorAll('.chapter');
+const storyDots = document.querySelectorAll('.story-dot');
+const pipelineEls = document.querySelectorAll('[data-sp]');
+const storyHint = document.querySelector('.story-hint');
+const chapterPanel = document.querySelector('.chapter-panel');
 
-Focus Areas:
-• Immersive Media
-• Digital Experiences
-• Emerging Technology
-• Rapid Prototyping
+// Which pipeline elements light up for each chapter
+const chapterHighlights = [
+    ['people'],                       // SIU — understanding people & products
+    ['tech'],                         // 8i — pure technology production
+    ['people', 'sussex', 'tech'],     // Sussex — people x technology
+    ['tech', 'gkn', 'business'],      // GKN — technology x business
+    ['business', 'abans', 'people']   // Abans — business x people (the loop)
+];
 
-Key Lesson:
-Technology becomes powerful when it makes reality more accessible.`
-    },
+function setChapter(index) {
+    chapters.forEach((c, i) => c.classList.toggle('active', i === index));
+    storyDots.forEach((d, i) => d.classList.toggle('active', i === index));
 
-    "Master's Research": {
-        title: "Research → Manufacturable Products",
-        content: `Explored how research can be transformed into practical products and experiences.
+    const active = chapterHighlights[index] || [];
+    pipelineEls.forEach(el => {
+        el.classList.toggle('active', active.includes(el.dataset.sp));
+    });
 
-Focus Areas:
-• Systems Thinking
-• Human-Centered Design
-• Product Innovation
-• Research Translation
+    if (storyHint) storyHint.classList.toggle('hidden', index > 0);
+}
 
-Key Lesson:
-Innovation happens when ideas become usable products.`
-    },
+if (storySteps.length && chapters.length) {
+    if ('IntersectionObserver' in window) {
+        setChapter(0);
 
-    "Sussex": {
-        title: "Physics → Human Perception",
-        content: `Conducted doctoral research in spatial audio, acoustic metamaterials, and human perception.
-
-Focus Areas:
-• Scientific Discovery
-• Human Perception
-• Research Leadership
-• Spatial Computing
-
-Key Lesson:
-Technology must align with how people perceive and experience the world.`
-    },
-
-    "GKN": {
-        title: "Knowledge → Enterprise Intelligence",
-        content: `Helped lead enterprise AI transformation initiatives across multiple international locations.
-
-Transformation Themes:
-• Enterprise Transformation
-• Technology Strategy
-• Global Collaboration
-• Digital Transformation
-• Operational Excellence
-
-Operating Across:
-India • UK • Sweden • Netherlands
-
-How I Operated:
-• Technology Translator
-• Consensus Builder
-• Technical Leader
-• Strategic Problem Solver
-
-Key Lesson:
-The hardest part of transformation is aligning people, priorities, and execution.`
-    },
-
-    "Abans": {
-        title: "Market Complexity → Product Execution",
-        content: `Leading AI-enabled product initiatives within capital markets and financial platforms.
-
-Focus Areas:
-• Product Leadership
-• Workflow Design
-• AI Enablement
-• Stakeholder Alignment
-
-Key Lesson:
-Great products reduce friction in high-stakes decision-making.`
-    }
-};
-
-// ========================================
-// JOURNEY INTERACTION
-// ========================================
-
-const tabs = document.querySelectorAll(".journey-tab");
-const detail = document.querySelector(".journey-detail");
-
-function loadJourney(key) {
-    const data = journeyData[key];
-    if (!data || !detail) return;
-
-    detail.innerHTML = `
-        <h3>${data.title}</h3>
-        <p>${data.content}</p>
-    `;
-
-    if (detail.animate) {
-        detail.animate(
-            [
-                { opacity: 0, transform: "translateY(10px)" },
-                { opacity: 1, transform: "translateY(0px)" }
-            ],
-            { duration: 300, easing: "ease-out" }
+        const storyObserver = new IntersectionObserver(
+            (entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        setChapter(parseInt(entry.target.dataset.chapter, 10));
+                    }
+                });
+            },
+            { rootMargin: '-45% 0px -45% 0px', threshold: 0 }
         );
-    }
-}
 
-if (tabs.length && detail) {
-    const firstKey = tabs[0].textContent.trim();
-    loadJourney(firstKey);
+        storySteps.forEach(step => storyObserver.observe(step));
 
-    tabs.forEach(tab => {
-        tab.addEventListener("click", () => {
-            tabs.forEach(t => t.classList.remove("active"));
-            tab.classList.add("active");
-
-            const key = tab.textContent.trim();
-            loadJourney(key);
+        storyDots.forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                const step = storySteps[i];
+                if (step) step.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
         });
-    });
-}
-
-// ========================================
-// TRANSLATION ENGINE V3 (NODES + BRIDGES)
-// ========================================
-
-// Data for the Bridges (The Companies)
-const engineData = {
- "sussex": {
-    title: "Sussex — Physics → Human Perception",
-    tag: "PEOPLE × TECHNOLOGY",
-    content: "PhD research in spatial audio and acoustic metamaterials. 210+ participants in psychoacoustic studies. 8 peer-reviewed papers in Nature, ACM SIGGRAPH, JASA. Translated hard physics into how humans actually experience sound."
- },
- "gkn": {
-    title: "GKN — Knowledge → Enterprise Intelligence",
-    tag: "TECHNOLOGY × BUSINESS",
-    content: "Architected secure on-prem LLM and RAG solutions, reducing cloud dependency by 30%. Built data governance with MS Fabric and Purview. Delivered $30M+ in quantifiable business value across 3 international sites."
- },
- "abans": {
-    title: "Abans — Market Complexity → Product Execution",
-    tag: "BUSINESS × PEOPLE",
-    content: "Conducted deep user research with financial dealers to identify friction in time-critical trading flows. Leading AI-augmented automation to convert requirements into regression tests. Reducing friction in high-stakes decision-making."
- }
-};
-
-// Data for the Nodes (The Domains)
-const nodeData = {
-    "people": {
-        tag: "THE HUMAN ELEMENT",
-        title: "People: Perception, Workflows & Alignment",
-        content: "From 210+ psychoacoustic studies at Sussex to deep user research with financial dealers at Abans. I focus on how humans actually experience, interact with, and make decisions within complex systems."
-    },
-    "technology": {
-        tag: "THE TECHNICAL CORE",
-        title: "Technology: Deep-Tech, AI & Spatial Systems",
-        content: "Architecting secure on-prem LLMs, RAG pipelines, and acoustic metamaterials. I build the foundational systems—bridging bare-metal engineering to enterprise-scale AI infrastructure."
-    },
-    "business": {
-        tag: "THE COMMERCIAL REALITY",
-        title: "Business: Scale, ROI & Enterprise Governance",
-        content: "Translating experimental AI into $30M+ in quantifiable business value. Securing $10M+ in innovation funding and ensuring strict aerospace compliance and data governance at global scale."
-    },
-    "market": {
-        tag: "THE MARKET REALITY",
-        title: "Market: Capital Flows & Product Execution",
-        content: "Operating in high-stakes capital markets. Grounding AI capabilities in commercial viability, ensuring product roadmaps directly support working-capital efficiency and trader productivity."
+    } else {
+        // Old browser: show every chapter stacked, no pinning tricks
+        if (chapterPanel) chapterPanel.classList.add('static');
+        chapters.forEach(c => c.classList.add('active'));
+        storyDots.forEach(d => d.style.display = 'none');
+        if (storyHint) storyHint.style.display = 'none';
     }
-};
-
-// Default state when nothing is hovered
-const defaultContent = {
-    tag: "THE TRANSLATION ENGINE",
-    title: "Architecting the Boundaries",
-    content: "Hover over the nodes (People, Technology, Business, Market) or the bridges (Sussex, GKN, Abans) to explore how I translate complexity into measurable outcomes."
-};
-
-// Select Elements
-const bridges = document.querySelectorAll('.engine-bridge');
-const nodes = document.querySelectorAll('.engine-node');
-const detailPanel = document.getElementById('engine-detail');
-const detailTag = document.getElementById('detail-tag');
-const detailTitle = document.getElementById('detail-title');
-const detailContent = document.getElementById('detail-content');
-
-// Helper function to update the panel with a smooth micro-animation
-function updatePanel(data) {
-    if (!data || !detailPanel) return;
-    
-    detailTag.textContent = data.tag;
-    detailTitle.textContent = data.title;
-    detailContent.textContent = data.content;
-
-    detailPanel.style.transform = 'scale(0.98)';
-    setTimeout(() => {
-        detailPanel.style.transform = 'scale(1)';
-    }, 150);
 }
-
-// 1. Bridge Interactions (The Companies)
-bridges.forEach(bridge => {
-    bridge.addEventListener('mouseenter', () => {
-        const key = bridge.dataset.company;
-        updatePanel(engineData[key]);
-    });
-
-    bridge.addEventListener('mouseleave', () => {
-        updatePanel(defaultContent);
-    });
-});
-
-// 2. Node Interactions (The Domains)
-nodes.forEach(node => {
-    node.addEventListener('mouseenter', () => {
-        const key = node.dataset.node;
-        updatePanel(nodeData[key]);
-    });
-
-    node.addEventListener('mouseleave', () => {
-        updatePanel(defaultContent);
-    });
-});
 
 // ========================================
 // SCROLL REVEAL
@@ -368,7 +204,7 @@ nodes.forEach(node => {
 
 function initScrollReveal() {
     if (!("IntersectionObserver" in window)) {
-        document.querySelectorAll(".section, .impact-card, .os-card, .testimonial-card, .transform-card, .research-list a")
+        document.querySelectorAll(".section, .impact-card, .case-card, .recognition-row, .research-list a")
             .forEach(el => el.classList.add("visible"));
         return;
     }
@@ -385,7 +221,7 @@ function initScrollReveal() {
         { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
 
-    document.querySelectorAll(".section, .impact-card, .os-card, .testimonial-card, .transform-card, .research-list a")
+    document.querySelectorAll(".section, .impact-card, .case-card, .recognition-row, .research-list a")
         .forEach(el => observer.observe(el));
 }
 
@@ -506,7 +342,7 @@ if (mobileBtn && navUl) {
 // ========================================
 
 console.log(
-    "%c Chinmay Rajguru %c\nArchitect of Translation Systems\n\nTurning complexity into measurable outcomes.",
+    "%c Chinmay Rajguru %c\nTechnology & Innovation Leader\n\nTurning complexity into measurable outcomes.",
     "font-size: 20px; font-weight: bold; color: #4f8cff;",
     "font-size: 12px; color: #9ca3af;"
 );
